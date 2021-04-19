@@ -60,9 +60,9 @@ let xAxis = d3.axisTop()
   .tickFormat(d => d);
 
 Promise.all([
-  d3.csv("../data/names_female.csv", d3.autoType),
-  d3.csv("../data/USstate.csv", d3.autoType),
-  d3.csv("../data/names_male.csv", d3.autoType),
+  d3.csv("data/names_female.csv", d3.autoType),
+  d3.csv("data/USstate.csv", d3.autoType),
+  d3.csv("data/names_male.csv", d3.autoType),
 ]).then(([female_data, statedata, male_data]) => {
   state.female = female_data
   state.male = male_data
