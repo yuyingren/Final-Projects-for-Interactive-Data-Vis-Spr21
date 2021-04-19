@@ -5,20 +5,23 @@ html {
 
 body {
   padding-left: 50px;
-  padding-right: 50px;
+  padding-right: 70px;
 }
 
 
 .headline {
-  
+  color: grey;
   margin:0;
-  padding-bottom: 20px;
-  font-size: x-large;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  text-align: center;
+  font-size: 35px;
+  font-family: serif;
 }
 
 .selectSandG {
   float:left;
-  padding-bottom: 40px;
+  padding-bottom: 50px;
   padding-right: 100px;
   font-size: 15px;
 
@@ -42,6 +45,7 @@ body {
   width: 80%;
   position: relative;
   clear:both;
+  padding-left: 10px;
 }
 .range-value{
   position: absolute;
@@ -80,6 +84,7 @@ body {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
+  padding-left: 5px;
 
 }
 .tick {
@@ -96,7 +101,7 @@ body {
 
 text.label{
   color: white;
-  font-family: 'Gill Sans', sans-serif;
+  font-family: Comic Sans MS, Comic Sans, cursive;
   font-size: 16px;
 }
 

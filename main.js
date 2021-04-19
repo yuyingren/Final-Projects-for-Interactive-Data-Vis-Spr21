@@ -4,7 +4,7 @@
  
  //console.log(rangeslider.value)
 
- const margin = { top: 30, bottom: 20, left: 20, right: 20 };
+ const margin = { top: 30, bottom: 20, left: 20, right: 40 };
  width = window.innerWidth * 0.8 - margin.left - margin.right;
  height = window.innerHeight * 0.6 - margin.top - margin.bottom;
 
@@ -114,7 +114,7 @@ function init() {
     .attr('y', d => y_scale(d.rank) +5)
     .attr('height', y_scale(1)-y_scale(0)-barPadding)
     .style('fill', "#52b788")
-    .style("opacity", 0.7);
+    .style("opacity", 0.8);
 
   svgPlot.selectAll('text.label')
     .data(yearSlice, d => d.name)
@@ -227,7 +227,7 @@ function updateChart(selectdata, h) {
       .attr("y", d => y_scale(top_ten+1)+5)
       .attr('height', y_scale(1)-y_scale(0)-barPadding)
       .style('fill', "#52b788")
-      .style("opacity", 0.7)
+      .style("opacity", 0.8)
       .transition()
         .duration(500)
         .ease(d3.easeLinear)
@@ -239,10 +239,10 @@ function updateChart(selectdata, h) {
           else if (d.rank < d.pre_rank) return "#ffbf69"
           else if (d.rank > d.pre_rank) return "#4ea8de"
         })
-        .style("opacity", 0.7);
+        .style("opacity", 0.8);
   bars
     .style("fill", "#52b788")
-    .style("opacity", 0.7)
+    .style("opacity", 0.8)
     .transition()
       .duration(500)
       .ease(d3.easeLinear)
@@ -255,7 +255,7 @@ function updateChart(selectdata, h) {
         else if (d.rank < d.pre_rank) return "#ffbf69"
         else if (d.rank > d.pre_rank) return "#4ea8de"
       })
-      .style("opacity", 0.7);
+      .style("opacity", 0.8);
   bars
     .exit()
     .transition()
