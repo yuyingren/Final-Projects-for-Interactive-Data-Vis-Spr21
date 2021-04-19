@@ -19,11 +19,18 @@ body {
   font-family: serif;
 }
 
+.selectors {
+  text-align: center;
+}
+
+
 .selectSandG {
-  float:left;
+  display: inline-block;
   padding-bottom: 50px;
   padding-right: 100px;
-  font-size: 15px;
+  font-size: 14px;
+  font-family: Helvetica, sans-serif;
+  color: #343a40;
 
 }
 .selectSandG select {
@@ -87,12 +94,20 @@ body {
   padding-left: 5px;
 
 }
+
+.ticky {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 1px;
+  color: #343a40;
+  
+}
 .tick {
   position: relative;
   display: flex;
   justify-content: center;
   width: 1px;
-  
 }
 
 .sliderLabel {
@@ -122,7 +137,13 @@ text.yearText{
   text-anchor: start;
   font-family: 'Gill Sans', sans-serif;
   font-size: 14px;
+
   
+}
+.tick text {
+  font-size: 12px;
+  font-family: sans-serif;
+  color: #343a40;
 }
 .tick line {
   shape-rendering: CrispEdges;
