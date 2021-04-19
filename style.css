@@ -162,3 +162,23 @@ text.yearText{
 path.domain{
   display: none;
 }
+.hover-content{
+  top: 0;
+  left: 0;
+  max-width: 100px;
+  background-color: white;
+  padding: 5px;
+  opacity: 0;
+  /* need to remove pointer events so that
+  the tooltip doesn't interrupt the mouse events */
+  pointer-events: none;
+  border-radius: 5px;
+  box-shadow: 0 0 3px gainsboro;
+}
+
+.hover-content.visible{
+  color:#343a40;
+  opacity: 0.9;
+  font-size: 12px;
+  font-family: sans-serif;
+}

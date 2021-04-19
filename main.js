@@ -21,7 +21,8 @@ let state = {
   state_name: null,
   hover: {
     screenPosition: null, // will be array of [x,y] once mouse is hovered on something
-    mapPosition: null, // will be array of [long, lat] once mouse is hovered on something
+    NameBar: null,
+    NameCount: null, // will be array of [long, lat] once mouse is hovered on something
     visible: false,
   },
   selectedState: null,
@@ -116,7 +117,29 @@ function init() {
     .attr('y', d => y_scale(d.rank) +5)
     .attr('height', y_scale(1)-y_scale(0)-barPadding)
     .style('fill', "#52b788")
-    .style("opacity", 0.8);
+    .style("opacity", 0.8)
+    .on("mousemove", function(event, d) {
+      d3.select(this).transition()
+        .duration("50")
+        .style("opacity", 1)
+      const {clientX, clientY} = event
+      state.hover= {
+        NameBar: d.name,
+        NameCount: [d.count],
+        screenPosition: [clientX, clientY],
+        visible: true
+      }
+
+      hoverdraw();
+
+    })
+    .on("mouseout", function(event, d) {
+      d3.select(this).transition()
+        .duration("50")
+        .style("opacity", 0.8)
+      state.hover.visible = false
+      hoverdraw();
+    });
 
   svgPlot.selectAll('text.label')
     .data(yearSlice, d => d.name)
@@ -209,7 +232,7 @@ function init() {
     updateChart(state.selectedS, state.selectedY)
     
   }); 
-
+ 
 };
 
 
@@ -257,6 +280,32 @@ function updateChart(selectdata, h) {
         })
         .style("opacity", 0.8);
   bars
+  //.data(d => [d])
+  .on("mousemove", function(event, d) {
+    d3.select(this).transition()
+      .duration("50")
+      .style("opacity", 1)
+    const {clientX, clientY} = event
+    state.hover= {
+      NameBar: d.name,
+      NameCount: [d.count],
+      screenPosition: [clientX, clientY],
+      visible: true
+    }
+    console.log(state.hover)
+
+    hoverdraw();
+
+  })
+  .on("mouseout", function(event, d) {
+    d3.select(this).transition()
+      .duration("50")
+      .style("opacity", 0.8)
+    state.hover.visible = false
+    hoverdraw();
+  });
+      
+  bars
     .style("fill", "#52b788")
     .style("opacity", 0.8)
     .transition()
@@ -272,6 +321,32 @@ function updateChart(selectdata, h) {
         else if (d.rank > d.pre_rank) return "#4ea8de"
       })
       .style("opacity", 0.8);
+
+  bars
+    //.data(d => [d])
+    .on("mousemove", function(event, d) {
+      d3.select(this).transition()
+        .duration("50")
+        .style("opacity", 1)
+      const {clientX, clientY} = event
+      state.hover= {
+        NameBar: d.name,
+        NameCount: [d.count],
+        screenPosition: [clientX, clientY],
+        visible: true
+      }
+      console.log(state.hover)
+
+      hoverdraw();
+
+    })
+    .on("mouseout", function(event, d) {
+      d3.select(this).transition()
+        .duration("50")
+        .style("opacity", 0.8)
+      state.hover.visible = false
+      hoverdraw();
+    });
   bars
     .exit()
     .transition()
@@ -365,6 +440,29 @@ function halo(text, strokeWidth) {
       .style('stroke-linejoin', 'round')
       .style('opacity', 1);
 };
+
+function hoverdraw() {
+  d3.select("#vis")
+  .selectAll("div.hover-content")
+  .data([state.hover])
+  .join("div")
+  .attr("class", 'hover-content')
+    .classed("visible", d=> d.visible)
+    .style("position", 'absolute')
+    .style("transform", d=> {
+      // only move if we have a value for screenPosition
+      //console.log("screenPosiiton", d.screenPosition)
+      if (d.screenPosition)
+      return `translate(${d.screenPosition[0]}px, ${d.screenPosition[1]}px)`
+    })
+    .html(d=>
+      `
+      <div>
+      ${d.NameBar}: ${formatNumber(d.NameCount)}
+      </div>
+      `)
+
+}
 
 
 
