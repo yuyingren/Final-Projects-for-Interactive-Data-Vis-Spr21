@@ -148,9 +148,11 @@ text.yearText{
 .tick line {
   shape-rendering: CrispEdges;
   stroke: #dddddd;
+  opacity: 0.8;
 }
 .tick line.origin{
   stroke: #aaaaaa;
+  opacity: 0.8;
 }
 path.domain{
   display: none;
