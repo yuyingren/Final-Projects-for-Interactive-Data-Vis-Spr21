@@ -59,6 +59,8 @@ let xAxis = d3.axisTop()
   .tickSize(-(height-margin.top-margin.bottom))
   .tickFormat(d => d);
 
+const formatNumber = d3.format(",d")
+
 Promise.all([
   d3.csv("data/names_female.csv", d3.autoType),
   d3.csv("data/USstate.csv", d3.autoType),
@@ -95,7 +97,7 @@ function init() {
     .scale(x_scale)
     .ticks(width > 500 ? 5:2)
     .tickSize(-(height-margin.top-margin.bottom))
-    .tickFormat(d => d);
+    .tickFormat(d => formatNumber(d));
 
   svgPlot.append('g')
     .attr('class', 'axis xAxis')
@@ -126,6 +128,15 @@ function init() {
     .style('text-anchor', 'end')
     .style("fill", "white")
     .html(d => d.name);
+
+  /*svgPlot.selectAll('text.countLabel')
+    .data(yearSlice, d => d.name)
+    .enter()
+    .append('text')
+    .attr('class', 'countLabel')
+    .attr('x', d => x_scale(d.count)+5)
+    .attr('y', d => y_scale(d.rank)+5+((y_scale(1)-y_scale(0))/2)+1)
+    .text(d => formatNumber(d.count));*/
 
   
   ///////// RRANGE BAR ////////////
@@ -207,6 +218,11 @@ function updateChart(selectdata, h) {
   //console.log(state.selected_s_data)
   h1 = Number(h)
   console.log(h1)
+  let xAxis = d3.axisTop()
+    .scale(x_scale)
+    .ticks(width > 500 ? 5:2)
+    .tickSize(-(height-margin.top-margin.bottom))
+    .tickFormat(d => formatNumber(d));
   
   filteredData = selectdata.filter(d => d.year === h1)
   console.log(filteredData)
@@ -298,6 +314,34 @@ function updateChart(selectdata, h) {
       .attr('x', d => x_scale(d.count)-8)
       .attr('y', d => y_scale(top_ten+1)+5)
       .remove();
+  /*let Countlabels = svgPlot.selectAll('.countLabel')
+    .data(filteredData, d => d.name);
+
+  Countlabels
+    .enter()
+    .append('text')
+    .attr('class', 'countLabel')
+    .attr('x', d => x_scale(d.count)+5)
+    .attr('y', d => y_scale(top_n+1)+5)
+    .text(d => formatNumber(d.count))
+    .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .attr('y', d => y_scale(d.rank)+5+((y_scale(1)-y_scale(0))/2)+1);
+
+  Countlabels
+    .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .attr('x', d => x_scale(d.count)+5)
+      .attr('y', d => y_scale(d.rank)+5+((y_scale(1)-y_scale(0))/2)+1)
+      .tween("text", function(d) {
+          let i = d3.interpolateRound(d.lastValue, d.value);
+          return function(t) {
+            this.textContent = d3.format(',')(i(t));
+        };
+      });*/
+  
 
   YearDisplay = h1
   if (YearDisplay >=1920 && YearDisplay < 1930) yearText.html(1920 + "s")
