@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <title>Interactive Data Visualization Final</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    
+    <h5 class="headline">Name Trends in United States</h5>
+    <div class="selectors" id="selector">
+      <div class="selectSandG" id="stateselector">
+        <label for="dropdown">State </label>
+        <select id="dropdown" name="dropdown"></select>
+      </div>
+
+      <div class="selectSandG" id="genderselector">
+        <label for="dropdown">Gender </label>
+        <select id="dropdown1" name="dropdown1"></select>
+      </div>
+    </div>
+
+    </div>
+    <div class="range-wrap">
+      <div class="range-value" id="rangeV"></div>
+      <input id="range" class="range1" type="range" min="1920" max="2019" 
+      value="1920" step="1">
+      <div class="ticks">
+        
+        <span class="ticky">1920</span>
+        <span class="ticky">1930</span>
+        <span class="ticky">1940</span>
+        <span class="ticky">1950</span>
+        <span class="ticky">1960</span>
+        <span class="ticky">1970</span>
+        <span class="ticky">1980</span>
+        <span class="ticky">1990</span>
+        <span class="ticky">2000</span>
+        <span class="ticky">2010</span>
+        <span class="ticky">2019</span>
+      </div>
+      
+    </div>
+   
+    <div id="vis"></div>
+    
+    <script src="../lib/d3.js"></script>
+    <script src="main.js"></script>
+    
+  </body>
+</html>
