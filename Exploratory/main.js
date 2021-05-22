@@ -98,7 +98,8 @@ function init() {
     .scale(x_scale)
     .ticks(width > 500 ? 5:2)
     .tickSize(-(height-margin.top-margin.bottom))
-    .tickFormat(d => formatNumber(d));
+    .tickFormat(d => formatNumber(d))
+    
 
   svgPlot.append('g')
     .attr('class', 'axis xAxis')
@@ -453,7 +454,7 @@ function hoverdraw() {
       // only move if we have a value for screenPosition
       //console.log("screenPosiiton", d.screenPosition)
       if (d.screenPosition)
-      return `translate(${d.screenPosition[0]}px, ${d.screenPosition[1]}px)`
+      return `translate(${d.screenPosition[0]+20}px, ${d.screenPosition[1]-20}px)`
     })
     .html(d=>
       `

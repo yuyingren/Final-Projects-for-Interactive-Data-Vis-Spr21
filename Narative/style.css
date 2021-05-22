@@ -54,6 +54,18 @@ body {
   font-size: 21px;
   font-family: serif;
 }
+.link {
+
+  background-color: #52b788;
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+  text-transform: uppercase;
+
+}
+.link:hover {
+  background-color: #e56b6f;
+}
 
 p {
   line-height: 150%;
@@ -215,3 +227,4 @@ pointer-events: all;
     font-family: sans-serif;
     text-align: center;
   }
+  
