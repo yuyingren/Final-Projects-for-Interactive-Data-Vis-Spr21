@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <title>Interactive Data Visualization Final</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h5 class="headline">Name Trends</h5>
+    <h3 class="author">Yuying Ren</h3>
+    
+    <div class="section1" id="section1">
+
+      <h5 class="subtitle1">Common and Uncommon Names</h5>
+
+      <p>Let's continue on some interesting findings on the name trends in the United States!</p>
+      <p>The two charts below are showing the distribution of <mark>common names</mark> and <mark>uncommon names</mark> in the polulation 
+      that the social security administration office has recorded.<br><br>Before we look at the distributions, one noticeble thing is 
+      the growing <mark>diverity of unique names</mark> in the US. In 1920, there are about 10,000 unique names and the number 
+      has tripled to over 30,000 in 2019!<br><br>There isn't a standard rule to categorize common and uncommon names.
+      However, observed from the national name ranking, the probable spliting line can be the line that seperating <mark>the top 10 percent 
+      names</mark>. And the common names are that top 10 percent of the total unique names in each year.<br><br>But why is the top 10 percent?
+      <br><br>The reason is that the top ten percent names occupied 85 ~ 90 percent of the population in each year, that is, about 
+      90 percent of people who registered for social security are using the same small set of names that is only 10 percent of the 
+      toal names in every year. The animation is demonstrating the distribution if female names, the male distribution is similar, change
+      the selection to see the male names.</p>
+
+      <div class="selectors" id="selector">
+        <label for="dropdown">Gender </label>
+        <select id="dropdown" name="dropdown"></select>
+      </div>
+
+      <div class="legends1" id="legend1"></div>
+      <div class="sec1charts">
+        <div id="vis1"></div>
+        <div id="vis2"></div>
+      </div>
+      
+    </div>
+    <div class="section2" id="section2">
+      <h5 class="subtitle2">Odd or Regular Patterns</h5>
+      <p>Now, with the background understanding of the common and uncommon names, let's discover something that are more interesting!<br><br>
+        We all probably have heard some names that are popular all the time, like Mary, or some names that come to public with <mark>a slow
+        growth</mark> and finally reach to the top rankings, like Emily. While these name are exceedingly popular but the reasons for their popularity
+         is hard to track in the history. On the constrary, there are some names that catch people's eyes with an oddly growth of popularity.
+         They probaly have a lower population, but their <mark>vastly growth of popularity</mark> in a such short time, can always give us a clear clue of
+         the reasons of their popularity.<br><br>Name like the former kind, will be grouped as the <mark>regular patterns</mark>, which means they have a
+         regular growth of popularity, by contrast, the later kind will be grouped as the <mark>odd patterns</mark>. As shown in the charts below, on 
+         the left is an example of the odd pattern name <mark class="exp">Elsa</mark>, which has a sharpe growth in 2014 after the Disney moive Frozen came out in 2013.
+         On the right is an example of the regular pattern name <mark class="exp">Chris</mark>, which is a unisex name but mostly used by male. Type any first name 
+         that you are interested in the box below to discover its pattern!<br><br>I only included the common names that we defined in the 
+         previous section, that is 6,800 names in totoal, if you couldn't find your name in here, then congratulation! Your name is very unique 
+         in the US!
+      </p>
+
+      <form class="typebox" id="typebox">
+        <label for="typename">Type a First Name:</label><br>
+        <input type="text" id="typename" name="typename"><br>
+        <button type="button" onclick="getInputValue();">ok</button>
+      </form>
+
+      <div class="legends2" id="legend2"></div>
+      <div class="sec2charts">
+        <div id="vis3"></div>
+        <div id="vis4"></div>
+      </div>
+      
+    </div>
+    
+    <script src="../lib/d3.js"></script>
+    <script src="main.js"></script>
+    <script src="main1.js"></script>
+    
+  </body>
+</html>
