@@ -4,8 +4,8 @@ html {
 }
 
 body {
-  padding-left: 70px;
-  padding-right: 70px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .selectors, .typebox {
@@ -128,7 +128,9 @@ mark {
 }
 
 
+
 .sec1charts, .sec2charts {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
@@ -136,6 +138,8 @@ mark {
     text-align: center;
     
 }
+
+
 
 .legends1, .legends2 {
   text-align: center;
@@ -147,10 +151,7 @@ mark {
   color: #343a40;
 }
 
-.overlay {
-fill: none;
-pointer-events: all;
-}
+
 
 .xLabel, .yLabel{
   font-family: Helvetica, sans-serif;
@@ -171,7 +172,7 @@ pointer-events: all;
 .hover-contentsec1{
   top: 0;
   left: 0;
-  width: 250px;
+  width: 300px;
   background-color: whitesmoke;
   padding: 5px;
   opacity: 0;
@@ -190,8 +191,7 @@ pointer-events: all;
 .hover-content{
     top: 0;
     left: 0;
-    width: 260px;
-    position: relative;
+    width: 300px;
     background-color: whitesmoke;
     padding: 5px;
     opacity: 0;
@@ -210,8 +210,7 @@ pointer-events: all;
 .hover-contentR{
     top: 0;
     left: 0;
-    width: 260px;
-    position: relative;
+    width: 300px;
     background-color: whitesmoke;
     padding: 5px;
     opacity: 0;

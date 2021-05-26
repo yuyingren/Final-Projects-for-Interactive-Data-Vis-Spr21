@@ -239,7 +239,7 @@ function init() {
     .attr('y', d => yScale2(d[1]))
     .attr('height', d => yScale2(d[0]) - yScale2(d[1]))
     .style("opacity", 1)
-    
+  console.log(CountPlot)
     
   barhover = CountPlot.append("g")
     .attr("class", "barHover")
@@ -255,7 +255,7 @@ function init() {
     .style("opacity", 0)
     .on("mouseover", function(event, d) {
 
-
+      
       d3.select(this)
         .transition()
         .duration("50")
@@ -284,7 +284,9 @@ function init() {
         .attr("cy", 0)
         .attr("r", 3)
         .attr("fill", "#0A0A0A")
-      
+      console.log(event.offsetY)
+      console.log(event.clientY)
+
       xp = event.clientX
       
       state2.hover= {
@@ -816,7 +818,7 @@ function updateChart() {
 
 function hoverdraw2() {
 
-  d3.select("#vis1")
+  d3.select("#sec1charts")
   .selectAll("div.hover-contentsec1")
   .data([state2.hover])
   .join("div")
@@ -827,7 +829,7 @@ function hoverdraw2() {
       // only move if we have a value for screenPosition
       //console.log("screenPosiiton", d.screenPosition)
       if (d.screenPosition)
-      return `translate(${d.screenPosition - 115}px, ${1040}px)`
+      return `translate(${d.screenPosition - 115}px, ${-60}px)`
     })
     .html(d=>
           
@@ -845,7 +847,7 @@ function hoverdraw2() {
 }
 function hoverdraw3() {
 
-  d3.select("#vis2")
+  d3.select("#sec1charts")
   .selectAll("div.hover-contentsec1")
   .data([state2.hover])
   .join("div")
@@ -856,7 +858,7 @@ function hoverdraw3() {
       // only move if we have a value for screenPosition
       //console.log("screenPosiiton", d.screenPosition)
       if (d.screenPosition)
-      return `translate(${d.screenPosition - 115}px, ${1040}px)`
+      return `translate(${d.screenPosition - 115}px, ${-60}px)`
     })
     .html(d=>
           
