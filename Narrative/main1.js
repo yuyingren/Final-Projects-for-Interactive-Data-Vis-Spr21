@@ -4,7 +4,7 @@
 /**
  * CONSTANTS AND GLOBALS
  * */
- width = 600,
+ width = 650,
  height = 500,
  margin = { top: 40, bottom: 60, left: 60, right: 30 };
 
@@ -89,7 +89,10 @@ Promise.all([
 //let formatYear = d3.timeFormat("%Y")
 
 let xScale = d3.scaleBand()
-  .range([margin.left, width - margin.right])
+  .range([margin.left, width - margin.right-40])
+
+let xAxisScale = d3.scaleTime()
+  .range([margin.left, width - margin.right-40])
   
 let yScale = d3.scaleLinear()
   .range([height - margin.bottom, margin.top])
@@ -203,10 +206,9 @@ function FModd() {
     .domain([0, d3.max(getod[0][1], d => d.count)]).nice()
 
 
-  let xAxisScale = d3.scaleTime()
+  xAxisScale
     .domain(d3.extent(Y_ind, d => new Date(+d, 0, 1)))
-    .range([margin.left, width - margin.right])
-  //console.log(d3.map(oddN[0], d => d.year))
+   
   xScale
     .domain(d3.map(getod[0][1], d => d.year))
 
@@ -224,7 +226,7 @@ function FModd() {
     .append("text")
     .attr("class", 'xLabel')
     .text("year")
-    .attr("transform", `translate(${width-margin.right}, ${40})`)
+    .attr("transform", `translate(${width-margin.right}, ${15})`)
     .attr("text-anchor", "middle")
     .attr("font-size","14")
     .attr("fill","black")
@@ -245,7 +247,7 @@ function FModd() {
   oddPlot.append("text")
     .attr("class", "xTitle")
     .attr("x", width / 2)
-    .attr("y", height)
+    .attr("y", height-15)
     .attr("text-anchor", "middle")
     .attr("font-size","16")
     .attr("fill","black")
@@ -259,7 +261,7 @@ function FModd() {
     .join("rect")
     .attr("class", "sinbars")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.count))
     .attr('height', d => height - yScale(d.count)-margin.bottom)
     .style('fill', d => colorFunc(d))
@@ -272,7 +274,7 @@ function FModd() {
     .data(getod[0][1])
     .join("rect")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.count))
     .attr('height', d => height - yScale(d.count)-margin.bottom)
     .style('fill', "white")
@@ -381,7 +383,7 @@ function FMreg(inp) {
     .join("rect")
     .attr("class", "sinbars")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.count))
     .attr('height', d => height - yScale(d.count)-margin.bottom)
     .style('fill', d => colorFunc(d))
@@ -393,7 +395,7 @@ function FMreg(inp) {
     .data(getreg[0][1])
     .join("rect")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.count))
     .attr('height', d => height - yScale(d.count)-margin.bottom)
     .style('fill', "white")
@@ -417,8 +419,8 @@ function FMreg(inp) {
       regPlot
         .append("line")
         .attr("class", "hover-line")
-        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right) /220))
-        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
+        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("y1", 0)
         .attr("y2", yScale(d.count))
         .attr("stroke", "#0A0A0A")
@@ -426,7 +428,7 @@ function FMreg(inp) {
       regPlot
         .append("circle")
         .attr("class", "hover-dot")
-        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("cy", 1.5)
         .attr("r", 3)
         .attr("fill", "#0A0A0A")
@@ -522,7 +524,7 @@ function Uniodd(inp) {
     .data(d=>d)
     .join("rect")
     .attr('x', d => xScale(d[3].year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d[1]))
     .attr('height', d => yScale(d[0]) - yScale(d[1]))
     .style('fill', d => colUniFunc(d))
@@ -537,7 +539,7 @@ function Uniodd(inp) {
     .join("rect")
     .attr("class", "rectuni")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.countT))
     .attr('height', d => height - yScale(d.countT)-margin.bottom)
     .style('fill', "white")
@@ -554,8 +556,8 @@ function Uniodd(inp) {
       oddPlot
         .append("line")
         .attr("class", "hover-line")
-        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right) /220))
-        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
+        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("y1", 0)
         .attr("y2", yScale(d.countT))
         .attr("stroke", "#0A0A0A")
@@ -564,7 +566,7 @@ function Uniodd(inp) {
       oddPlot
         .append("circle")
         .attr("class", "hover-dot")
-        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("cy", 1.5)
         .attr("r", 3)
         .attr("fill", "#0A0A0A")
@@ -622,9 +624,9 @@ function Unireg(inp) {
   yScale
     .domain([0, d3.max(stack, d => d3.max(d, d => d[1]))]).nice()
     
-  let xAxisScale = d3.scaleTime()
+  xAxisScale
     .domain(d3.extent(Y_ind, d => new Date(+d, 0, 1)))
-    .range([margin.left, width - margin.right])
+    
   //console.log(d3.map(oddN[0], d => d.year))
   
   //colScaleR
@@ -644,7 +646,7 @@ function Unireg(inp) {
     .append("text")
     .attr("class", 'xLabel')
     .text("year")
-    .attr("transform", `translate(${width-margin.right}, ${40})`)
+    .attr("transform", `translate(${width-margin.right}, ${15})`)
     .attr("text-anchor", "middle")
     .attr("font-size","14")
     .attr("fill","black")
@@ -666,7 +668,7 @@ function Unireg(inp) {
   regPlot.append("text")
     .attr("class", "xTitle")
     .attr("x", width / 2)
-    .attr("y", height)
+    .attr("y", height-15)
     .attr("text-anchor", "middle")
     .attr("font-size","16")
     .attr("fill","black")
@@ -701,7 +703,7 @@ function Unireg(inp) {
     .data(d=>d)
     .join("rect")
     .attr('x', d => xScale(d[3].year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d[1]))
     .attr('height', d => yScale(d[0]) - yScale(d[1]))
     .style('fill', d => colUniFunc(d))
@@ -719,7 +721,7 @@ function Unireg(inp) {
     .join("rect")
     .attr("class", "rectuni")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.countT))
     .attr('height', d => height - yScale(d.countT)-margin.bottom)
     .style('fill', "white")
@@ -736,8 +738,8 @@ function Unireg(inp) {
       regPlot
         .append("line")
         .attr("class", "hover-line")
-        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right) /220))
-        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
+        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("y1", 0)
         .attr("y2", yScale(d.countT))
         .attr("stroke", "#0A0A0A")
@@ -745,7 +747,7 @@ function Unireg(inp) {
       regPlot
         .append("circle")
         .attr("class", "hover-dot")
-        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("cy", 1.5)
         .attr("r", 3)
         .attr("fill", "#0A0A0A")
@@ -842,7 +844,7 @@ function updateUniReg(inp) {
     .data(d=>d)
     .join("rect")
     .attr('x', d => xScale(d[3].year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d[1]))
     .attr('height', d => yScale(d[0]) - yScale(d[1]))
     .style('fill', d => colUniFunc(d))
@@ -856,7 +858,7 @@ function updateUniReg(inp) {
     .join("rect")
     .attr("class", "rectuni")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.countT))
     .attr('height', d => height - yScale(d.countT)-margin.bottom)
     .style('fill', "white")
@@ -873,8 +875,8 @@ function updateUniReg(inp) {
       regPlot
         .append("line")
         .attr("class", "hover-line")
-        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right) /220))
-        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
+        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("y1", 0)
         .attr("y2", yScale(d.countT))
         .attr("stroke", "#0A0A0A")
@@ -882,7 +884,7 @@ function updateUniReg(inp) {
       regPlot
         .append("circle")
         .attr("class", "hover-dot")
-        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("cy", 1.5)
         .attr("r", 3)
         .attr("fill", "#0A0A0A")
@@ -960,7 +962,7 @@ function UpdateFModd() {
     .join("rect")
     .attr("class", "sinbars")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.count))
     .attr('height', d => height - yScale(d.count)-margin.bottom)
     .style('fill', d => colorFunc(d))
@@ -972,7 +974,7 @@ function UpdateFModd() {
     .data(getod[0][1])
     .join("rect")
     .attr('x', d => xScale(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale(d.count))
     .attr('height', d => height - yScale(d.count)-margin.bottom)
     .style('fill', "white")
@@ -995,8 +997,8 @@ function UpdateFModd() {
       oddPlot
         .append("line")
         .attr("class", "hover-line")
-        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right) /220))
-        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("x1", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
+        .attr("x2", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("y1", 0)
         .attr("y2", yScale(d.count))
         .attr("stroke", "#0A0A0A")
@@ -1004,7 +1006,7 @@ function UpdateFModd() {
       oddPlot
         .append("circle")
         .attr("class", "hover-dot")
-        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("cx", xScale(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("cy", 1.5)
         .attr("r", 3)
         .attr("fill", "#0A0A0A")
@@ -1081,7 +1083,7 @@ function hoverdraw1() {
         // only move if we have a value for screenPosition
         //console.log("screenPosiiton", d.screenPosition)
         if (d.screenPosition)
-        return `translate(${d.screenPosition -150}px, ${-45}px)`
+        return `translate(${d.screenPosition-150}px, ${-45}px)`
       })
       .html(d=> 
 

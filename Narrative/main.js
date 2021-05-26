@@ -3,7 +3,7 @@
 /**
  * CONSTANTS AND GLOBALS
  * */
-let width = 600,
+let width = 650,
  height = 500,
  margin = { top: 40, bottom: 60, left: 60, right: 30 };
 
@@ -53,7 +53,11 @@ d3.csv("../data/NameStat.csv", (d) => {
 ///////////////////// SCALE GROUP /////////////////////
 
 let xScale2 = d3.scaleBand()
-  .range([margin.left, width - margin.right])
+  .range([margin.left, width - margin.right-40])
+
+let xAxisScale2 = d3.scaleTime()
+  .range([margin.left, width - margin.right-40])
+
   
 let yScale2 = d3.scaleLinear()
   .range([height - margin.bottom, margin.top])
@@ -148,18 +152,17 @@ function init() {
     .domain([0, d3.max(CountStack, d => d3.max(d, d => d[1]))]).nice()
     
   //console.log(d3.extent(Countseries, d => d3.max(d, d => d[1])))
-  let xAxisScale = d3.scaleTime()
+  xAxisScale2
     .domain(d3.extent(Y_ind, d => new Date(+d, 0, 1)))
-    .range([margin.left, width - margin.right])
 
   let LineFunc = d3.line()
-    .x(d => xAxisScale(new Date(+d.year, 0, 1)))
+    .x(d => xAxisScale2(new Date(+d.year, 0, 1)))
     .y(d => yScale2(d.Tcount))
   //console.log(LineFunc(iniData))
   //console.log(xAxisScale(new Date(+[iniData][0][0].year, 0, 1)))
 
   // AXES
-  let xAxis = d3.axisBottom(xAxisScale)
+  let xAxis = d3.axisBottom(xAxisScale2)
   let yAxis = d3.axisLeft(yScale2)
   
   CountPlot.append("g")
@@ -169,7 +172,7 @@ function init() {
     .append("text")
     .attr("class", 'xLabel')
     .text("year")
-    .attr("transform", `translate(${width-margin.right}, ${40})`)
+    .attr("transform", `translate(${width-margin.right}, ${15})`)
     .attr("text-anchor", "middle")
     .attr("font-size","14")
     .attr("fill","black")
@@ -189,11 +192,11 @@ function init() {
   CountPlot.append("text")
     .attr("class", "xTitle")
     .attr("x", width / 2)
-    .attr("y", height)
+    .attr("y", height-15)
     .attr("text-anchor", "middle")
     .attr("font-size","16")
     .attr("fill","black")
-    .text("Number of Unique Names from 1920~2019")
+    .text("portion of common and uncommon names from 1920~2019")
   
   
 
@@ -214,7 +217,7 @@ function init() {
     .join("rect")
     .attr('class', d => `${d[2]}`)
     .attr('x', d => xScale2(d[3].year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', height-margin.bottom)
     .style('fill', d => colorScale(d[2]))
     .attr('height', 0)
@@ -248,7 +251,7 @@ function init() {
     .join("rect")
     .attr("class", "rects")
     .attr('x', d => xScale2(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale2(d.Tcount))
     .attr('height', d => height - yScale2(d.Tcount)-margin.bottom)
     .style('fill', "white")
@@ -264,15 +267,15 @@ function init() {
 
       xScale2
         .domain(iniData1.map(d => d.year))
-
+    
       yScale2
         .domain([0, d3.max(CountStack, d => d3.max(d, d => d[1]))]).nice()
 
       CountPlot
         .append("line")
         .attr("class", "hover-line")
-        .attr("x1", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
-        .attr("x2", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("x1", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
+        .attr("x2", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("y1", 0)
         .attr("y2", yScale2(d.Tcount))
         .attr("stroke", "#0A0A0A")
@@ -280,7 +283,7 @@ function init() {
       CountPlot
         .append("circle")
         .attr("class", "hover-dot")
-        .attr("cx", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("cx", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("cy", 0)
         .attr("r", 3)
         .attr("fill", "#0A0A0A")
@@ -313,7 +316,7 @@ function init() {
 
   //console.log(CountPlot.selectAll("rect.rects"))
   let LineFuncMade = d3.line()
-    .x(d => xAxisScale(new Date(+d[0], 0, 1)))
+    .x(d => xAxisScale2(new Date(+d[0], 0, 1)))
     .y(d => yScale2(d[1]))
 
   countLine = CountPlot.append("g")
@@ -369,7 +372,7 @@ function init() {
     .append("text")
     .attr("class", 'xLabel')
     .text("year")
-    .attr("transform", `translate(${width-30}, ${40})`)
+    .attr("transform", `translate(${width-margin.right}, ${15})`)
     .attr("text-anchor", "middle")
     .attr("font-size","14")
     .attr("fill","black")
@@ -377,11 +380,11 @@ function init() {
   PopPlot.append("text")
     .attr("class", "xTitle")
     .attr("x", width / 2)
-    .attr("y", height)
+    .attr("y", height-15)
     .attr("text-anchor", "middle")
     .attr("font-size","16")
     .attr("fill","black")
-    .text("Number people with top 10% names")
+    .text("portion of population with common and uncommon names from 1920~2019")
 
 
 
@@ -414,7 +417,7 @@ function init() {
     .join("rect")
     .attr('class', d => `${d[2]}`)
     .attr('x', d => xScale2(d[3].year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', height-margin.bottom)
     .style('fill', d => colorScale(d[2]))
     .style("opacity", 0)
@@ -450,7 +453,7 @@ function init() {
     .join("rect")
     .attr("class", "rectpop")
     .attr('x', d => xScale2(d.year))
-    .attr('width', (width-margin.left-margin.right) /110)
+    .attr('width', (width-margin.left-margin.right-40) /110)
     .attr('y', d => yScale2(d.Tpop))
     .attr('height', d => height - yScale2(d.Tpop)-margin.bottom)
     .style('fill', "white")
@@ -467,8 +470,8 @@ function init() {
       PopPlot
         .append("line")
         .attr("class", "hover-line")
-        .attr("x1", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
-        .attr("x2", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("x1", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
+        .attr("x2", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("y1", 0)
         .attr("y2", yScale2(d.Tpop))
         .attr("stroke", "#0A0A0A")
@@ -478,7 +481,7 @@ function init() {
       PopPlot
         .append("circle")
         .attr("class", "hover-dot")
-        .attr("cx", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
+        .attr("cx", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
         .attr("cy", 0)
         .attr("r", 3)
         .attr("fill", "#0A0A0A")
@@ -510,7 +513,7 @@ function init() {
 
 
   LineFuncMade = d3.line()
-    .x(d => xAxisScale(new Date(+d[0], 0, 1)))
+    .x(d => xAxisScale2(new Date(+d[0], 0, 1)))
     .y(d => yScale2(d[1]))
 
   popLine = PopPlot.append("g")
@@ -526,7 +529,7 @@ function init() {
       .attr("fill", "none")
 
   LineFunc = d3.line()
-    .x(d => xAxisScale(new Date(+d.year, 0, 1)))
+    .x(d => xAxisScale2(new Date(+d.year, 0, 1)))
     .y(d => yScale2(d.Tpop))
 
   popLine
@@ -588,9 +591,9 @@ function updateChart() {
     .domain([0, d3.max(CountStack, d => d3.max(d, d => d[1]))]).nice()
     
   //console.log(d3.extent(Countseries, d => d3.max(d, d => d[1])))
-  xAxisScale = d3.scaleTime()
+  xAxisScale2
     .domain(d3.extent(TYData, d => new Date(+d.year, 0, 1)))
-    .range([margin.left, width - margin.right])
+    
 
   
   // AXES
@@ -613,7 +616,7 @@ function updateChart() {
     .duration(500)
     .ease(d3.easeLinear)
       .attr('x', d => xScale2(d[3].year))
-      .attr('width', (width-margin.left-margin.right) /110)
+      .attr('width', (width-margin.left-margin.right-40) /110)
       .attr('y', d => yScale2(d[1]))
       .attr('height', d => yScale2(d[0]) - yScale2(d[1]))
       .style('fill', d => colorScale(d[2]))
@@ -630,7 +633,7 @@ function updateChart() {
     .duration(500)
     .ease(d3.easeLinear)
       .attr('x', d => xScale2(d.year))
-      .attr('width', (width-margin.left-margin.right) /110)
+      .attr('width', (width-margin.left-margin.right-40) /110)
       .attr('y', d => yScale2(d.Tcount))
       .attr('height', d => height - yScale2(d.Tcount)-margin.bottom)
       
@@ -646,8 +649,8 @@ function updateChart() {
         CountPlot
           .append("line")
           .attr("class", "hover-line")
-          .attr("x1", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
-          .attr("x2", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
+          .attr("x1", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
+          .attr("x2", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
           .attr("y1", 0)
           .attr("y2", yScale2(d.Tcount))
           .attr("stroke", "#0A0A0A")
@@ -655,12 +658,12 @@ function updateChart() {
         CountPlot
           .append("circle")
           .attr("class", "hover-dot")
-          .attr("cx", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
+          .attr("cx", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
           .attr("cy", 0)
           .attr("r", 3)
           .attr("fill", "#0A0A0A")
         
-          xp = event.clientX
+        xp = event.clientX
       
           state2.hover= {
             screenPosition: xp,
@@ -685,7 +688,7 @@ function updateChart() {
         })
 
   LineFunc = d3.line()
-    .x(d => xAxisScale(new Date(+d.year, 0, 1)))
+    .x(d => xAxisScale2(new Date(+d.year, 0, 1)))
     .y(d => yScale2(d.Tcount))
     
     //console.log(LineFunc(TYData))
@@ -731,7 +734,7 @@ function updateChart() {
     .duration(500)
     .ease(d3.easeLinear)
       .attr('x', d => xScale2(d[3].year))
-      .attr('width', (width-margin.left-margin.right) /110)
+      .attr('width', (width-margin.left-margin.right-40) /110)
       .attr('y', d => yScale2(d[1]))
       .attr('height', d => yScale2(d[0]) - yScale2(d[1]))
       .style('fill', d => colorScale(d[2]))
@@ -747,7 +750,7 @@ function updateChart() {
     .duration(500)
     .ease(d3.easeLinear)
       .attr('x', d => xScale2(d.year))
-      .attr('width', (width-margin.left-margin.right) /110)
+      .attr('width', (width-margin.left-margin.right-40) /110)
       .attr('y', d => yScale2(d.Tpop))
       .attr('height', d => height - yScale2(d.Tpop)-margin.bottom)
         
@@ -764,8 +767,8 @@ function updateChart() {
     PopPlot
       .append("line")
       .attr("class", "hover-line")
-      .attr("x1", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
-      .attr("x2", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
+      .attr("x1", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
+      .attr("x2", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
       .attr("y1", 0)
       .attr("y2", yScale2(d.Tpop))
       .attr("stroke", "#0A0A0A")
@@ -775,7 +778,7 @@ function updateChart() {
     PopPlot
       .append("circle")
       .attr("class", "hover-dot")
-      .attr("cx", xScale2(d.year)+ ((width-margin.left-margin.right) /220))
+      .attr("cx", xScale2(d.year)+ ((width-margin.left-margin.right-40) /220))
       .attr("cy", 0)
       .attr("r", 3)
       .attr("fill", "#0A0A0A")
@@ -805,7 +808,7 @@ function updateChart() {
   });
 
   LineFunc = d3.line()
-    .x(d => xAxisScale(new Date(+d.year, 0, 1)))
+    .x(d => xAxisScale2(new Date(+d.year, 0, 1)))
     .y(d => yScale2(d.Tpop))
 
   popLine
@@ -829,7 +832,7 @@ function hoverdraw2() {
       // only move if we have a value for screenPosition
       //console.log("screenPosiiton", d.screenPosition)
       if (d.screenPosition)
-      return `translate(${d.screenPosition - 150}px, ${-60}px)`
+      return `translate(${d.screenPosition-150}px, ${-60}px)`
     })
     .html(d=>
           
@@ -858,7 +861,7 @@ function hoverdraw3() {
       // only move if we have a value for screenPosition
       //console.log("screenPosiiton", d.screenPosition)
       if (d.screenPosition)
-      return `translate(${d.screenPosition - 150}px, ${-60}px)`
+      return `translate(${d.screenPosition-150}px, ${-60}px)`
     })
     .html(d=>
           
