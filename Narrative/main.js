@@ -829,7 +829,7 @@ function hoverdraw2() {
       // only move if we have a value for screenPosition
       //console.log("screenPosiiton", d.screenPosition)
       if (d.screenPosition)
-      return `translate(${d.screenPosition - 115}px, ${-60}px)`
+      return `translate(${d.screenPosition - 150}px, ${-60}px)`
     })
     .html(d=>
           
@@ -858,7 +858,7 @@ function hoverdraw3() {
       // only move if we have a value for screenPosition
       //console.log("screenPosiiton", d.screenPosition)
       if (d.screenPosition)
-      return `translate(${d.screenPosition - 115}px, ${-60}px)`
+      return `translate(${d.screenPosition - 150}px, ${-60}px)`
     })
     .html(d=>
           
